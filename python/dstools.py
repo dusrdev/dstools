@@ -56,6 +56,36 @@ class Native:
             return True
         except:
             return False
+    
+    @staticmethod #* Returns all search queries from text
+    def queryable(text: str):
+        indexes = text.allIndexes("\"")
+        if (not indexes or len(indexes) % 2 != 0):
+            return text.splitByWithoutEmpties()
+        else:
+            length = len(indexes)
+            lst = []
+            count: int = 0
+            while (count <= length):
+                lst.append(text[indexes[count]:(indexes[count + 1] - indexes[count])])
+                count += 2
+            total = []
+            if (len(lst) > 0):
+                for substring in lst:
+                    total.append(substring)
+                    text.replace("\"{substring}\"", "")
+            for word in text.splitByWithoutEmpties():
+                total.append(word)
+            return total
+                
+    
+    @staticmethod #* splits text without empty entries
+    def splitByWithoutEmpties(text: str, sep: str):
+        return [word for word in text.split(sep) if not word.isspace()]
+    
+    @staticmethod #* returns an array of indexes of all instances of c in text
+    def allIndexes(text: str, c):
+        return [k for k, v in enumerate(text) if v == c]
 
     @staticmethod #* gets html using urllib3 (very fast)
     def get_html(url: str):
