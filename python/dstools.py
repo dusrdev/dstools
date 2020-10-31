@@ -248,10 +248,6 @@ class Collections:
     def nestedDictLastN(d: dict, n: int):
         return dict(OrderedDict({k: Collections.dictLastN(v, n) for k, v in d.items()}))
 
-    @staticmethod #* Returns the combined length of every dict in the nested dict
-    def nestedDictLen(d: dict):
-	    return sum([len(v) for v in d.values() if v != {"No":"Updates"}])
-
     @staticmethod #* util to present dicts (Including nested dicts)
     def printNestedDict(data: dict):
         NestedDictionary(data).print()
@@ -348,7 +344,8 @@ class Collections:
              decrypted = {k: v.result() for k, v in decrypted.items()}
          return decrypted
 
-#* proprietary aes cipher class
+#* simple aes cipher class
+#* Feel free to modify
 class AESCipher():
     def __init__(self):
         self.bs = 16
